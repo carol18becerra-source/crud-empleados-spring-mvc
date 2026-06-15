@@ -3,6 +3,7 @@ package com.example.entities;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -22,15 +23,20 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="empleados")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Builder
+@Builder 
+@Getter
+@Setter
+
+@ToString(exclude = {"departamento", "telefonos", "emails"})
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,10 +60,10 @@ public class Empleado implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     private Departamento departamento;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "empleado")
-    private Set<Telefono> telefonos;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "empleado")
+    private Set<Telefono> telefonos = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, mappedBy = "empleado")
-    private Set<Correo> emails;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "empleado")
+    private Set<Correo> emails = new HashSet<>();
     
 }
