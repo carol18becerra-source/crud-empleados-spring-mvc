@@ -24,6 +24,7 @@ public interface EmpleadoDao extends JpaRepository<Empleado, Integer> {
 	 * Buscar JPA Query Methods */
  
 	List<Empleado> findByNombre(String nombre);
+	
 	boolean existsByGenero(Genero genero);
 	
 }
