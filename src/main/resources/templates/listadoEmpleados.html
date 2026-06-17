@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listado de Empleados</title>
+<style>
+body {
+	font-family: 'courier new';
+	background-color: #f4f7f6;
+	color: #333;
+	margin: 0;
+	padding: 40px 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+h1 {
+	color: #2c3e50;
+	margin-bottom: 24px;
+	font-weight: 600;
+	text-align: center;
+}
+
+.table-container {
+	width: 100%;
+	max-width: 1000px;
+	background-color: #fff;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+}
+
+thead {
+	background-color: #34495e;
+	color: #ffffff;
+}
+
+th {
+	padding: 16px;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 0.85rem;
+	letter-spacing: 0.5px;
+}
+
+td {
+	padding: 14px 16px;
+	border-bottom: 1px solid #eef2f3;
+	color: #4f5d73;
+	font-size: 0.95rem;
+}
+
+tbody tr:nth-child(even) {
+	background-color: #f8fafc;
+}
+
+tbody tr:hover {
+	background-color: #f1f5f9;
+	transition: background-color 0.2s ease;
+}
+
+.text-right {
+	text-align: right;
+}
+</style>
+</head>
+<body>
+
+	<h1>Listado de Empleados</h1>
+
+	<div class="table-container">
+		<table>
+			<thead>
+				<tr>
+					<th>Nombre</th>
+					<th>Primer Apellido</th>
+					<th>Segundo Apellido</th>
+					<th>Género</th>
+					<th class="text-right">Salario</th>
+					<th>Fecha de Alta</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="empleado : ${empleados}">
+					<td th:text="${empleado.nombre}"></td>
+					<td th:text="${empleado.primerApellido}"></td>
+					<td th:text="${empleado.segundoApellido}"></td>
+					<td th:text="${empleado.genero}"></td>
+					<td th:text="${empleado.salario}" class="text-right"></td>
+					<td th:text="${empleado.fechaAlta}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+</body>
+</html>
