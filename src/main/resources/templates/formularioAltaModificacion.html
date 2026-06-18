@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Alta/Modificación</title>
+</head>
+
+<style>
+    /* Importar fuente */
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Poppins', sans-serif;
+        min-height: 100vh;
+        background: linear-gradient(135deg,
+                #ffd6e8 0%,
+                #dce8ff 50%,
+                #ead9ff 100%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 40px 20px;
+    }
+
+    /* Título */
+    h1 {
+        color: #7a5fcf;
+        margin-bottom: 25px;
+        text-align: center;
+        font-size: 2.3rem;
+        text-shadow: 2px 2px 8px rgba(255, 255, 255, .7);
+    }
+
+    /* Contenedor principal */
+    fieldset {
+        width: 100%;
+        max-width: 750px;
+        border: none;
+        border-radius: 25px;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(10px);
+        padding: 30px;
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, .1),
+            0 0 20px rgba(180, 160, 255, .2);
+    }
+
+    /* Leyendas */
+    legend {
+        background: linear-gradient(135deg,
+                #ff9dcf,
+                #bba4ff);
+        color: white;
+        padding: 10px 25px;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    /* Formulario */
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    /* Labels */
+    label {
+        display: block;
+        margin-bottom: 6px;
+        color: #5d4b91;
+        font-weight: 500;
+    }
+
+    /* Inputs */
+    input[type="text"],
+    input[type="date"],
+    select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 2px solid #e4dcff;
+        border-radius: 12px;
+        background: #ffffff;
+        font-size: 15px;
+        transition: .3s;
+    }
+
+    /* Focus */
+    input:focus,
+    select:focus {
+        outline: none;
+        border-color: #b39df8;
+        box-shadow: 0 0 10px rgba(179, 157, 248, .4);
+    }
+
+    /* Radios */
+    fieldset fieldset {
+        background: #f7f4ff;
+        border: 2px solid #e4dcff;
+        border-radius: 15px;
+        padding: 15px;
+        margin-top: 5px;
+    }
+
+    fieldset fieldset legend {
+        background: transparent;
+        color: #7a5fcf;
+        padding: 0;
+    }
+
+    input[type="radio"] {
+        accent-color: #b39df8;
+        margin-right: 6px;
+    }
+
+    fieldset fieldset label {
+        display: inline;
+        margin-right: 15px;
+    }
+
+    /* Botón */
+    .btn {
+        margin-top: 15px;
+        padding: 14px;
+        border: none;
+        border-radius: 15px;
+        background: linear-gradient(135deg,
+                #ff9dcf,
+                #9bbcff,
+                #c8a7ff);
+        color: white;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: .3s;
+    }
+
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(177, 140, 255, .4);
+    }
+
+    .btn:active {
+        transform: translateY(0);
+    }
+
+    /* Placeholders */
+    ::placeholder {
+        color: #b7aacd;
+    }
+
+    /* Responsive */
+    @media(max-width:768px) {
+
+        body {
+            padding: 20px 10px;
+        }
+
+        fieldset {
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+        }
+    }
+</style>
+
+<body>
+    <div>
+        <h1>Gestión de Empleados</h1>
+    </div>
+
+
+
+    <fieldset>
+        <legend>Formulario de Alta o Modificación</legend>
+        <!-- el @ en Thymeleaf indica que es una URL -->
+        <form th:action="@{/empleados/persistir}" method="post" th:object="${empleado}">
+            <input type="hidden" th:field="*{id}">
+            <div>
+                <!-- el * en Thymeleaf  -->
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" required th:field="*{nombre}">
+            </div>
+            <div>
+                <label for="primerApellido">Primer Apellido</label>
+                <input type="text" id="primerApellido" name="primerApellido" required th:field="*{primerApellido}">
+            </div>
+            <div>
+                <label for="segundoApellido">Segundo Apellido</label>
+                <input type="text" id="segundoApellido" name="segundoApellido" required th:field="*{segundoApellido}">
+            </div>
+            <div>
+                <fieldset>
+                    <legend>Genero:</legend>
+                    <label for="hombre"> Hombre</label>
+                    <input type="radio" id="hombre" name="genero" value="HOMBRE" th:field="*{genero}">
+
+                    <label for="mujer">Mujer</label>
+                    <input type="radio" name="genero" id="mujer" value="MUJER" th:field="*{genero}">
+
+                    <label for="otro">Otro</label>
+                    <input type="radio" name="genero" id="otro" value="OTRO" th:field="*{genero}">
+                </fieldset>
+            </div>
+            <div>
+                <label for="salario">Salario:</label>
+                <input type="text" name="salario" id="salario" th:field="*{salario}">
+            </div>
+            <div>
+                <label for="fechaAlta">Fecha de Alta:</label>
+                <input type="date" name="fechaAlta" id="fechaAlta" th:field="*{fechaAlta}">
+            </div>
+            <div>
+                <label for="numerosTelefono">Telefonos</label>
+                <input type="text" name="numerosTelefono" id="numerosTelefono"
+                    placeholder="Uno o varios separados por ;" >
+            </div>
+            <div>
+                <label for="direccionesCorreo">Correos</label>
+                <input type="text" name="direccionesCorreo" id="direccionesCorreo"
+                    placeholder="Uno o varios separados por ;" >
+            </div>
+            <div>
+                <label for="departamentos">Departamento:</label>
+                <select name="departamentos" id="departamentos" th:field="*{departamento}">
+                    <option value=""></option>
+                    <option th:each="dpto:${departamentos}" th:value="${dpto.id}" th:text="${dpto.nombre}"></option>
+                </select>
+            </div>
+            <div>
+                <input type="submit" class="btn" value="Alta/Modificacion">
+            </div>
+
+        </form>
+    </fieldset>
+
+</body>
+
+</html>

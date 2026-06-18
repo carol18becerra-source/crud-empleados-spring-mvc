@@ -36,7 +36,7 @@ import lombok.ToString;
 @Getter
 @Setter
 
-@ToString(exclude = {"departamento", "telefonos", "emails"})
+@ToString(exclude = {"telefonos", "emails"})
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,7 +52,7 @@ public class Empleado implements Serializable {
     @Enumerated(EnumType.STRING)
     private Genero genero;
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+   @DateTimeFormat(pattern ="yyyy-MM-dd")
     private LocalDate fechaAlta;
 
     private BigDecimal salario;

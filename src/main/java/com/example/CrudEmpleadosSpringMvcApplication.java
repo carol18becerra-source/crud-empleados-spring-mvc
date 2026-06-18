@@ -82,7 +82,7 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 				.build();
 		
 		Empleado empleado3 = Empleado.builder().nombre("Pedro").primerApellido("Gómez").segundoApellido("Sánchez")
-				.genero(Genero.HOMBRE).fechaAlta(LocalDate.of(2023, 03, 01)).departamento(departamento3)
+				.genero(Genero.HOMBRE).fechaAlta(LocalDate.of(2023, 03, 13)).departamento(departamento3)
 				.salario(new BigDecimal("2800.00"))
 				.telefonos(Set.of(Telefono.builder().numero("777777777").build(),
 						Telefono.builder().numero("888888888").build()))
