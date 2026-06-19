@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -232,7 +232,7 @@
             </div>
             <div>
                 <label for="departamentos">Departamento:</label>
-                <select name="departamentos" id="departamentos" th:field="*{departamento}">
+                <select id="departamentos" th:field="*{departamento}">
                     <option value=""></option>
                     <option th:each="dpto:${departamentos}" th:value="${dpto.id}" th:text="${dpto.nombre}"></option>
                 </select>
