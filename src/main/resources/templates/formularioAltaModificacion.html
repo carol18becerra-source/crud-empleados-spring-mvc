@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"  lang="es">
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -37,6 +37,12 @@
         text-align: center;
         font-size: 2.3rem;
         text-shadow: 2px 2px 8px rgba(255, 255, 255, .7);
+    }
+
+    .error {
+        /*mensaje de error*/
+        color: red;
+        font-size: bold;
     }
 
     /* Contenedor principal */
@@ -187,13 +193,15 @@
         <form th:action="@{/empleados/persistir}" method="post" th:object="${empleado}">
             <input type="hidden" th:field="*{id}">
             <div>
-                <!-- el * en Thymeleaf  -->
-                <label for="nombre">Nombre</label>
-                <input type="text" id="nombre" name="nombre" required th:field="*{nombre}">
+                <label for="nombre">Nombre: </label>
+                <input type="text" id="nombre" required th:field="*{nombre}">
+                <p th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="error">Nombre Incorrecto</p>
             </div>
             <div>
                 <label for="primerApellido">Primer Apellido</label>
                 <input type="text" id="primerApellido" name="primerApellido" required th:field="*{primerApellido}">
+                <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="error">Primer
+                    Apellido Incorrecto</p>
             </div>
             <div>
                 <label for="segundoApellido">Segundo Apellido</label>
@@ -223,12 +231,12 @@
             <div>
                 <label for="numerosTelefono">Telefonos</label>
                 <input type="text" name="numerosTelefono" id="numerosTelefono"
-                    placeholder="Uno o varios separados por ;" >
+                    placeholder="Uno o varios separados por ;">
             </div>
             <div>
                 <label for="direccionesCorreo">Correos</label>
                 <input type="text" name="direccionesCorreo" id="direccionesCorreo"
-                    placeholder="Uno o varios separados por ;" >
+                    placeholder="Uno o varios separados por ;">
             </div>
             <div>
                 <label for="departamentos">Departamento:</label>
