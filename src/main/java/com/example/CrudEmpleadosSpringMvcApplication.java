@@ -1,8 +1,6 @@
 package com.example;
 
 import java.math.BigDecimal;
-
-
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -15,10 +13,8 @@ import com.example.entities.Departamento;
 import com.example.entities.Empleado;
 import com.example.entities.Telefono;
 import com.example.model.Genero;
-//import com.example.services.CorreoService;
 import com.example.services.DepartamentoService;
 import com.example.services.EmpleadoService;
-//import com.example.services.TelefonoService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -63,7 +59,7 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 		departamentoService.saveDepartamento(departamento5);
 
 		// // crear empleados
-		Empleado empleado1 = Empleado.builder().nombre("Juan").primerApellido("Pérez").segundoApellido("García")
+		Empleado empleado1 = Empleado.builder().nombre("Juan").primerApellido("Perez").segundoApellido("Garcia")
 				.genero(Genero.HOMBRE).fechaAlta(LocalDate.of(2023, 01, 01)).departamento(departemento1)
 				.salario(new BigDecimal("2500.00"))
 				.telefonos(Set.of(Telefono.builder().numero("123456789").build(),
@@ -72,7 +68,7 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 						Correo.builder().email("empl@gg.com").build()))
 				.build();
 		
-		Empleado empleado2 = Empleado.builder().nombre("María").primerApellido("López").segundoApellido("Martínez")
+		Empleado empleado2 = Empleado.builder().nombre("Maria").primerApellido("Lopez").segundoApellido("Martinez")
 				.genero(Genero.MUJER).fechaAlta(LocalDate.of(2023, 02, 01)).departamento(departamento2)
 				.salario(new BigDecimal("3000.00"))
 				.telefonos(Set.of(Telefono.builder().numero("555555555").build(),
@@ -81,7 +77,7 @@ public class CrudEmpleadosSpringMvcApplication implements CommandLineRunner {
 						Correo.builder().email("mari@gg.com").build()))
 				.build();
 		
-		Empleado empleado3 = Empleado.builder().nombre("Pedro").primerApellido("Gómez").segundoApellido("Sánchez")
+		Empleado empleado3 = Empleado.builder().nombre("Pedro").primerApellido("Gomez").segundoApellido("Sanchez")
 				.genero(Genero.HOMBRE).fechaAlta(LocalDate.of(2023, 03, 13)).departamento(departamento3)
 				.salario(new BigDecimal("2800.00"))
 				.telefonos(Set.of(Telefono.builder().numero("777777777").build(),

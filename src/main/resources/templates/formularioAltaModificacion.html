@@ -223,10 +223,15 @@
             <div>
                 <label for="salario">Salario:</label>
                 <input type="text" name="salario" id="salario" th:field="*{salario}">
+                <p th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" class="error">el salario debe ser
+                    superior o igual a 1000</p>
+
             </div>
             <div>
                 <label for="fechaAlta">Fecha de Alta:</label>
                 <input type="date" name="fechaAlta" id="fechaAlta" th:field="*{fechaAlta}">
+                <p th:if="${#fields.hasErrors('fechaAlta')}" th:errors="*{fechaAlta}" class="error">La fecha de alta
+                    debe ser igual o anterior a la fecha actual </p>
             </div>
             <div>
                 <label for="numerosTelefono">Telefonos</label>
