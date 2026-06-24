@@ -5,105 +5,198 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Listado de Empleados</title>
 <style>
-body {
-	font-family: 'courier new';
-	background-color: #f4f7f6;
-	color: #333;
-	margin: 0;
-	padding: 40px 20px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
+    /* Importar fuente idéntica al formulario */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-h1 {
-	color: #2c3e50;
-	margin-bottom: 24px;
-	font-weight: 600;
-	text-align: center;
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-.table-container {
-	width: 100%;
-	max-width: 1000px;
-	background-color: #fff;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-	border-radius: 8px;
-	overflow: hidden;
-}
+    body {
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        background-color: #0f172a; /* Fondo oscuro profundo */
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
+        color: #f1f5f9;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-table {
-	width: 100%;
-	border-collapse: collapse;
-	text-align: left;
-}
+    /* Título */
+    h1 {
+        color: #ffffff;
+        margin-bottom: 10px;
+        font-weight: 700;
+        text-align: center;
+        font-size: 2.5rem;
+        letter-spacing: -0.05em;
+    }
 
-thead {
-	background-color: #34495e;
-	color: #ffffff;
-}
+    /* Contenedor del Botón de Alta */
+    .actions-container {
+        width: 100%;
+        max-width: 1100px;
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
 
-th {
-	padding: 16px;
-	font-weight: 600;
-	text-transform: uppercase;
-	font-size: 0.85rem;
-	letter-spacing: 0.5px;
-}
+    /* Botón Alta Empleado */
+    .btn-alta {
+        display: inline-block;
+        text-decoration: none;
+        background: #10b981; /* Verde Esmeralda */
+        color: #0f172a;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 14px;
+        transition: all 0.2s ease-in-out;
+        box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+    }
 
-td {
-	padding: 14px 16px;
-	border-bottom: 1px solid #eef2f3;
-	color: #4f5d73;
-	font-size: 0.95rem;
-}
+    .btn-alta:hover {
+        background: #34d399;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+    }
 
-tbody tr:nth-child(even) {
-	background-color: #f8fafc;
-}
+    .btn-alta:active {
+        transform: translateY(0);
+    }
 
-tbody tr:hover {
-	background-color: #f1f5f9;
-	transition: background-color 0.2s ease;
-}
+    /* Contenedor de la Tabla */
+    .table-container {
+        width: 100%;
+        max-width: 1100px;
+        background-color: #1e293b; /* Fondo de tarjeta de formulario */
+        border: 1px solid #334155;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+        border-radius: 12px;
+        overflow: hidden;
+    }
 
-.text-right {
-	text-align: right;
-}
+    /* Tabla */
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+    }
+
+    /* Encabezado */
+    thead {
+        background-color: #111827; /* Más oscuro para contrastar */
+        border-bottom: 2px solid #334155;
+    }
+
+    th {
+        padding: 16px 20px;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        letter-spacing: 0.05em;
+        color: #94a3b8; /* Texto gris suave */
+    }
+
+    /* Celdas del Cuerpo */
+    td {
+        padding: 16px 20px;
+        border-bottom: 1px solid #334155;
+        color: #e2e8f0;
+        font-size: 0.90rem;
+    }
+
+    /* Filas Cebras */
+    tbody tr:nth-child(even) {
+        background-color: #1e293b;
+    }
+    
+    tbody tr:nth-child(odd) {
+        background-color: #172237; /* Sutil variación de fondo */
+    }
+
+    /* Efecto Hover en las filas */
+    tbody tr:hover {
+        background-color: #0f172a;
+        transition: background-color 0.15s ease;
+    }
+
+    /* Formateo de Texto a la Derecha (Salario) */
+    .text-right {
+        text-align: right;
+    }
+    
+    /* Resaltar la columna salario con un tono ligeramente esmeralda */
+    td.text-right {
+        color: #34d399; 
+        font-weight: 500;
+    }
+
+    /* Diseño Responsivo */
+    @media(max-width: 768px) {
+        body {
+            padding: 20px 10px;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .actions-container {
+            justify-content: center;
+        }
+
+        /* Permitir scroll horizontal en pantallas pequeñas para que no se rompa la tabla */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        th, td {
+            padding: 12px 14px;
+            font-size: 0.85rem;
+        }
+    }
 </style>
 </head>
 <body>
 
-	<h1>Listado de Empleados</h1>
-	
-	<div >
-		<a th:href="@{/empleados/alta}" >Alta Empleado</a>
-	</div>
+    <h1>Listado de Empleados</h1>
+    
+    <div class="actions-container">
+        <a th:href="@{/empleados/alta}" class="btn-alta">+ Alta Empleado</a>
+    </div>
 
-	<div class="table-container">
-		<table>
-			<thead>
-				<tr>
-					<th>Nombre</th>
-					<th>Primer Apellido</th>
-					<th>Segundo Apellido</th>
-					<th>Género</th>
-					<th class="text-right">Salario</th>
-					<th>Fecha de Alta</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="empleado : ${empleados}">
-					<td th:text="${empleado.nombre}"></td>
-					<td th:text="${empleado.primerApellido}"></td>
-					<td th:text="${empleado.segundoApellido}"></td>
-					<td th:text="${empleado.genero}"></td>
-					<td th:text="${empleado.salario}" class="text-right"></td>
-					<td th:text="${empleado.fechaAlta}"></td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Primer Apellido</th>
+                    <th>Segundo Apellido</th>
+                    <th>Género</th>
+                    <th class="text-right">Salario</th>
+                    <th>Fecha de Alta</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="empleado : ${empleados}">
+                    <td th:text="${empleado.nombre}"></td>
+                    <td th:text="${empleado.primerApellido}"></td>
+                    <td th:text="${empleado.segundoApellido}"></td>
+                    <td th:text="${empleado.genero}"></td>
+                    <td th:text="${empleado.salario}" class="text-right"></td>
+                    <td th:text="${empleado.fechaAlta}"></td>
+                    <td><a th:href="@{/empleados/details/}+${empleado.id}">Detalles</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
 </body>
 </html>

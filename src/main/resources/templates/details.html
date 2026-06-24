@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Empleado</title>
+</head>
+
+<style>
+    /* Importar fuente */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        min-height: 100vh;
+        background-color: #0f172a;
+        /* Fondo oscuro profundo */
+        background-image:
+            radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
+        color: #f1f5f9;
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Tarjeta de perfil contenedor */
+    .profile-card {
+        width: 100%;
+        max-width: 600px;
+        background: #1e293b;
+        /* Fondo de tarjeta */
+        border: 1px solid #334155;
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Centrar elementos superiores */
+        text-align: center;
+    }
+
+    /* Contenedor del Avatar / Foto */
+    .avatar-container {
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* Ajuste corregido para la imagen */
+    .avatar-container img {
+        width: 130px;
+        height: 130px;
+
+
+        object-position: center center;
+        /* Centra la imagen tanto vertical como horizontalmente */
+
+        border: 3px solid #10b981;
+        /* Borde verde neón */
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+        background-color: #0f172a;
+        /* Fondo de respaldo por si la imagen tiene transparencias */
+    }
+
+    /* Encabezado del Perfil (Nombre) */
+    h1 {
+        color: #ffffff;
+        font-size: 2rem;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        margin-bottom: 8px;
+        line-height: 1.2;
+    }
+
+    /* Subtítulo (Departamento) */
+    .department-badge {
+        display: inline-block;
+        background-color: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+        /* Verde esmeralda */
+        padding: 6px 14px;
+        border-radius: 9999px;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        margin-bottom: 30px;
+        border: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    /* Secciones de Datos (Teléfonos / Correos) */
+    .info-section {
+        width: 100%;
+        margin-bottom: 25px;
+        border-top: 1px solid #334155;
+        padding-top: 20px;
+        text-align: left;
+        /* Volvemos a alinear las listas a la izquierda */
+    }
+
+    .info-section h2 {
+        color: #94a3b8;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 12px;
+    }
+
+    /* Listas de contacto */
+    ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    li {
+        background: #0f172a;
+        padding: 12px 16px;
+        border-radius: 8px;
+        border: 1px solid #334155;
+        font-size: 15px;
+        color: #e2e8f0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    /* Viñeta personalizada */
+    li::before {
+        content: "•";
+        color: #10b981;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    /* Contenedor de acciones */
+    .actions {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    .btn-secondary {
+        display: inline-block;
+        text-decoration: none;
+        background: transparent;
+        color: #94a3b8;
+        border: 1px solid #475569;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 500;
+        font-size: 14px;
+        transition: all 0.2s ease;
+        text-align: center;
+        width: 100%;
+    }
+
+    .btn-secondary:hover {
+        color: #ffffff;
+        border-color: #94a3b8;
+        background: rgba(148, 163, 184, 0.05);
+    }
+
+    /* Responsive */
+    @media(max-width: 600px) {
+        .profile-card {
+            padding: 25px 20px;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+        }
+
+        .avatar-container img {
+            width: 110px;
+            height: 110px;
+        }
+    }
+</style>
+
+<body>
+
+    <div class="profile-card">
+
+        <div class="avatar-container" th:if="${empleado.foto != null}">
+            <img th:src="@{/imagenes/} + ${empleado.foto}" alt="Foto del Empleado">
+        </div>
+
+        <h1
+            th:text="'Detalles del Empleado: ' + ${empleado.nombre} + ' ' + ${empleado.primerApellido} + ' ' + ${empleado.segundoApellido}">
+            Nombre del Empleado
+        </h1>
+
+        <div class="department-badge" th:text="'Departamento: ' + ${empleado.departamento.nombre}">
+            Departamento
+        </div>
+
+        <div class="info-section" th:if="${empleado.telefonos.size() > 0}">
+            <h2>Teléfonos</h2>
+            <ul>
+                <li th:each="telefono : ${empleado.telefonos}" th:text="${telefono.numero}"></li>
+            </ul>
+        </div>
+
+        <div class="info-section" th:if="${empleado.emails.size() > 0}">
+            <h2>Correos Electrónicos</h2>
+            <ul>
+                <li th:each="email : ${empleado.emails}" th:text="${email.email}"></li>
+            </ul>
+        </div>
+
+        <div class="actions">
+            <a th:href="@{/empleados}" class="btn-secondary">← Volver al Listado</a>
+        </div>
+    </div>
+
+</body>
+
+</html>

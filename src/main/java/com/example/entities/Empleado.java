@@ -1,7 +1,6 @@
 package com.example.entities;
 
 import java.io.Serializable;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -22,12 +21,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -88,9 +85,13 @@ public class Empleado implements Serializable {
     private Departamento departamento;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "empleado")
+    @Builder.Default
     private Set<Telefono> telefonos = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "empleado")
+    @Builder.Default
     private Set<Correo> emails = new HashSet<>();
+
+    private String foto;
 
 }

@@ -9,7 +9,7 @@
 
 <style>
     /* Importar fuente */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
     * {
         margin: 0;
@@ -18,164 +18,207 @@
     }
 
     body {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Inter', sans-serif;
         min-height: 100vh;
-        background: linear-gradient(135deg,
-                #ffd6e8 0%,
-                #dce8ff 50%,
-                #ead9ff 100%);
+        background-color: #0f172a; /* Fondo oscuro profundo */
+        background-image: 
+            radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
+            radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
         display: flex;
         flex-direction: column;
         align-items: center;
         padding: 40px 20px;
+        color: #f1f5f9;
     }
 
     /* Título */
     h1 {
-        color: #7a5fcf;
-        margin-bottom: 25px;
+        color: #ffffff;
+        margin-bottom: 30px;
         text-align: center;
-        font-size: 2.3rem;
-        text-shadow: 2px 2px 8px rgba(255, 255, 255, .7);
+        font-size: 2.5rem;
+        font-weight: 700;
+        letter-spacing: -0.05em;
     }
 
     .error {
-        /*mensaje de error*/
-        color: red;
-        font-size: bold;
+        color: #f87171;
+        font-size: 13px;
+        margin-top: 6px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
     }
 
     /* Contenedor principal */
     fieldset {
         width: 100%;
-        max-width: 750px;
-        border: none;
-        border-radius: 25px;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(10px);
-        padding: 30px;
-        box-shadow:
-            0 10px 30px rgba(0, 0, 0, .1),
-            0 0 20px rgba(180, 160, 255, .2);
+        max-width: 700px;
+        border: 1px solid #334155;
+        border-radius: 16px;
+        background: #1e293b; /* Fondo de la tarjeta */
+        padding: 40px;
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
     }
 
     /* Leyendas */
     legend {
-        background: linear-gradient(135deg,
-                #ff9dcf,
-                #bba4ff);
-        color: white;
-        padding: 10px 25px;
-        border-radius: 30px;
+        color: #10b981; /* Verde neón esmeralda */
+        padding: 0 10px;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
     }
 
     /* Formulario */
     form {
         display: flex;
         flex-direction: column;
-        gap: 18px;
+        gap: 20px;
     }
 
     /* Labels */
     label {
         display: block;
-        margin-bottom: 6px;
-        color: #5d4b91;
+        margin-bottom: 8px;
+        color: #94a3b8;
         font-weight: 500;
+        font-size: 14px;
     }
 
-    /* Inputs */
+    /* Inputs, Selects y File */
     input[type="text"],
     input[type="date"],
     select {
         width: 100%;
-        padding: 12px 15px;
-        border: 2px solid #e4dcff;
-        border-radius: 12px;
-        background: #ffffff;
+        padding: 12px 16px;
+        border: 1px solid #475569;
+        border-radius: 8px;
+        background: #0f172a;
+        color: #f1f5f9;
         font-size: 15px;
-        transition: .3s;
+        transition: all .2s ease-in-out;
+    }
+
+    /* Estilo especial para el input file */
+    input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        background: #0f172a;
+        border: 1px dashed #475569;
+        border-radius: 8px;
+        color: #94a3b8;
+        cursor: pointer;
+    }
+
+    input[type="file"]::file-selector-button {
+        background: #334155;
+        color: #f1f5f9;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        margin-right: 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    input[type="file"]::file-selector-button:hover {
+        background: #475569;
     }
 
     /* Focus */
     input:focus,
-    select:focus {
+    select:focus,
+    input[type="file"]:focus {
         outline: none;
-        border-color: #b39df8;
-        box-shadow: 0 0 10px rgba(179, 157, 248, .4);
+        border-color: #10b981;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.15);
     }
 
-    /* Radios */
+    /* Contenedor de Radios (Género) */
     fieldset fieldset {
-        background: #f7f4ff;
-        border: 2px solid #e4dcff;
-        border-radius: 15px;
-        padding: 15px;
+        background: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 16px;
         margin-top: 5px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 
     fieldset fieldset legend {
         background: transparent;
-        color: #7a5fcf;
-        padding: 0;
+        color: #94a3b8;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 0 5px;
     }
 
     input[type="radio"] {
-        accent-color: #b39df8;
-        margin-right: 6px;
+        accent-color: #10b981;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
     }
 
     fieldset fieldset label {
-        display: inline;
-        margin-right: 15px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 0;
+        cursor: pointer;
+        color: #f1f5f9;
     }
 
     /* Botón */
     .btn {
-        margin-top: 15px;
+        margin-top: 10px;
         padding: 14px;
         border: none;
-        border-radius: 15px;
-        background: linear-gradient(135deg,
-                #ff9dcf,
-                #9bbcff,
-                #c8a7ff);
-        color: white;
+        border-radius: 8px;
+        background: #10b981;
+        color: #0f172a;
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
-        transition: .3s;
+        transition: all .2s ease-in-out;
+        width: 100%;
     }
 
     .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 20px rgba(177, 140, 255, .4);
+        background: #34d399;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
     }
 
     .btn:active {
-        transform: translateY(0);
+        transform: scale(0.98);
     }
 
     /* Placeholders */
     ::placeholder {
-        color: #b7aacd;
+        color: #475569;
     }
 
     /* Responsive */
     @media(max-width:768px) {
-
         body {
-            padding: 20px 10px;
+            padding: 20px 12px;
         }
 
         fieldset {
-            padding: 20px;
+            padding: 24px;
         }
 
         h1 {
-            font-size: 1.8rem;
+            font-size: 2rem;
+        }
+
+        fieldset fieldset {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
         }
     }
 </style>
@@ -185,12 +228,9 @@
         <h1>Gestión de Empleados</h1>
     </div>
 
-
-
     <fieldset>
         <legend>Formulario de Alta o Modificación</legend>
-        <!-- el @ en Thymeleaf indica que es una URL -->
-        <form th:action="@{/empleados/persistir}" method="post" th:object="${empleado}">
+        <form th:action="@{/empleados/persistir}" method="post" th:object="${empleado}" enctype="multipart/form-data">
             <input type="hidden" th:field="*{id}">
             <div>
                 <label for="nombre">Nombre: </label>
@@ -200,8 +240,7 @@
             <div>
                 <label for="primerApellido">Primer Apellido</label>
                 <input type="text" id="primerApellido" name="primerApellido" required th:field="*{primerApellido}">
-                <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="error">Primer
-                    Apellido Incorrecto</p>
+                <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="error">Primer Apellido Incorrecto</p>
             </div>
             <div>
                 <label for="segundoApellido">Segundo Apellido</label>
@@ -209,39 +248,35 @@
             </div>
             <div>
                 <fieldset>
-                    <legend>Genero:</legend>
-                    <label for="hombre"> Hombre</label>
-                    <input type="radio" id="hombre" name="genero" value="HOMBRE" th:field="*{genero}">
-
-                    <label for="mujer">Mujer</label>
-                    <input type="radio" name="genero" id="mujer" value="MUJER" th:field="*{genero}">
-
-                    <label for="otro">Otro</label>
-                    <input type="radio" name="genero" id="otro" value="OTRO" th:field="*{genero}">
+                    <legend>Género</legend>
+                    <label for="hombre">
+                        <input type="radio" id="hombre" name="genero" value="HOMBRE" th:field="*{genero}"> Hombre
+                    </label>
+                    <label for="mujer">
+                        <input type="radio" name="genero" id="mujer" value="MUJER" th:field="*{genero}"> Mujer
+                    </label>
+                    <label for="otro">
+                        <input type="radio" name="genero" id="otro" value="OTRO" th:field="*{genero}"> Otro
+                    </label>
                 </fieldset>
             </div>
             <div>
                 <label for="salario">Salario:</label>
                 <input type="text" name="salario" id="salario" th:field="*{salario}">
-                <p th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" class="error">el salario debe ser
-                    superior o igual a 1000</p>
-
+                <p th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" class="error">El salario debe ser superior o igual a 1000</p>
             </div>
             <div>
                 <label for="fechaAlta">Fecha de Alta:</label>
                 <input type="date" name="fechaAlta" id="fechaAlta" th:field="*{fechaAlta}">
-                <p th:if="${#fields.hasErrors('fechaAlta')}" th:errors="*{fechaAlta}" class="error">La fecha de alta
-                    debe ser igual o anterior a la fecha actual </p>
+                <p th:if="${#fields.hasErrors('fechaAlta')}" th:errors="*{fechaAlta}" class="error">La fecha de alta debe ser igual o anterior a la fecha actual</p>
             </div>
             <div>
-                <label for="numerosTelefono">Telefonos</label>
-                <input type="text" name="numerosTelefono" id="numerosTelefono"
-                    placeholder="Uno o varios separados por ;">
+                <label for="numerosTelefono">Teléfonos</label>
+                <input type="text" name="numerosTelefono" id="numerosTelefono" placeholder="Uno o varios separados por ;">
             </div>
             <div>
                 <label for="direccionesCorreo">Correos</label>
-                <input type="text" name="direccionesCorreo" id="direccionesCorreo"
-                    placeholder="Uno o varios separados por ;">
+                <input type="text" name="direccionesCorreo" id="direccionesCorreo" placeholder="Uno o varios separados por ;">
             </div>
             <div>
                 <label for="departamentos">Departamento:</label>
@@ -251,12 +286,14 @@
                 </select>
             </div>
             <div>
-                <input type="submit" class="btn" value="Alta/Modificacion">
+                <label for="file">Foto del Empleado: </label>
+                <input type="file" id="file" name="file">
             </div>
-
+            <div>
+                <input type="submit" class="btn" value="Alta / Modificación">
+            </div>
         </form>
     </fieldset>
-
 </body>
 
 </html>
