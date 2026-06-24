@@ -6,7 +6,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,8 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.entities.Correo;
 import com.example.entities.Empleado;
 import com.example.entities.Telefono;
+import com.example.services.CorreoService;
 import com.example.services.DepartamentoService;
 import com.example.services.EmpleadoService;
+import com.example.services.TelefonoService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +41,8 @@ public class EmpleadoController {
 
 	private final EmpleadoService empleadoService;
 	private final DepartamentoService departamentoService;
+	private final CorreoService correoService;
+	private final TelefonoService telefonoService;
 
 	@GetMapping("/listar")
 	public String listarEmpleados(Model model) {
@@ -68,7 +74,7 @@ public class EmpleadoController {
 
 	// Método para recibir los datos del formulario de creación de empleado
 	@PostMapping("/persistir")
-	@SuppressWarnings({"LoggerStringConcat", "UseSpecificCatch", "CallToPrintStackTrace"})
+	@SuppressWarnings({ "LoggerStringConcat", "UseSpecificCatch", "CallToPrintStackTrace" })
 	public String procesarFormularioAltaModificacion(
 			@Valid @ModelAttribute Empleado empleado,
 			BindingResult result,
@@ -91,7 +97,7 @@ public class EmpleadoController {
 		// la clase, foto, y guardas el contenido de la foto como un archivo en el
 		// sistema de archivos (file system) del servidor
 
-		if (file != null && !file.isEmpty()){
+		if (file != null && !file.isEmpty()) {
 
 			Path rutaRelativa = Paths.get("src/main/resources/static/imagenes");
 
@@ -141,6 +147,14 @@ public class EmpleadoController {
 						.email(dirCorr).empleado(empleado).build());
 			});
 		}
+		// antes de persistir el empleado, hay que eliminar los telefonos y los correos
+		// que tenga
+		if (telefonoService.existsByEmpleado(empleado))
+			telefonoService.deleteByEmpleado(empleado);
+
+		if (correoService.existsByEmpleado(empleado))
+			correoService.deleteByEmpleado(empleado);
+
 
 		// se recibe un objeto empleado con los datos del formulario
 		// se envia a la capa de servicios para que lo guarde en la BD
@@ -150,19 +164,54 @@ public class EmpleadoController {
 
 	}
 
- //Método que muestra los detalles de un empleado cuyo id se recibe como parámetro
-   @GetMapping("/details/{id}")
-   public String mostrarDetalles (Model model,
-       @PathVariable(name = "id", required = true) int empleado_id){
+	// Método que muestra los detalles de un empleado cuyo id se recibe como
+	// parámetro
+	@GetMapping("/details/{id}")
+	public String mostrarDetalles(Model model,
+			@PathVariable(name = "id", required = true) int empleado_id) {
 
+		// recuperar el empleado cuyo id se recibe como parametro
+		model.addAttribute("empleado", empleadoService.getEmpleadoById(empleado_id));
 
-   //recuperar el empleado cuyo id se recibe como parametro
-   model.addAttribute("empleado", empleadoService.getEmpleadoById(empleado_id));
+		return "details";
+	}
 
+	// Metodo para actualizar a un empleado
+	// Muestra en el formulario de Alta/Modificacion la información del empleado que
+	// se va a actualizar
+	@GetMapping("/update/{id}")
+	public String updateEmpleado(Model model, @PathVariable(name = "id", required = true) int idEmpleado) {
 
-       return "details";
-   }
+		Empleado empleado = empleadoService.getEmpleadoById(idEmpleado);
 
+		// recuperar el empleado cuyo id se recibe como parametro
+		model.addAttribute("empleado", empleado);
 
+		model.addAttribute("departamentos", departamentoService.getAllDepartamentos());
+
+		// Procesando los telefonos y los correos porque no se deben hacer los calculos
+		// en la vista
+
+		Set<Telefono> telefonos = empleado.getTelefonos();
+
+		if (telefonos.size() > 0) {
+
+			String numerosTelefono = telefonos.stream()
+					.map(telefono -> telefono.getNumero())
+					.collect(Collectors.joining(";"));
+
+			model.addAttribute("numerosTelefono", numerosTelefono);
+		}
+
+		Set<Correo> correos = empleado.getEmails();
+
+		if (correos.size() > 0) {
+			String direccionesCorreos = correos.stream()
+					.map(correo -> correo.getEmail())
+					.collect(Collectors.joining(";"));
+			model.addAttribute("direccionesCorreos", direccionesCorreos);
+		}
+
+		return "formularioAltaModificacion";
+	}
 }
-

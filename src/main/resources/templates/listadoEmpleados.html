@@ -193,6 +193,7 @@
                     <td th:text="${empleado.salario}" class="text-right"></td>
                     <td th:text="${empleado.fechaAlta}"></td>
                     <td><a th:href="@{/empleados/details/}+${empleado.id}">Detalles</a></td>
+                    <td><a th:href="@{/empleados/update/}+${empleado.id}">Actualizar</a></td>
                 </tr>
             </tbody>
         </table>
