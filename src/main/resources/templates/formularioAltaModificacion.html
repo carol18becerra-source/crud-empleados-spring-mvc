@@ -20,8 +20,9 @@
     body {
         font-family: 'Inter', sans-serif;
         min-height: 100vh;
-        background-color: #0f172a; /* Fondo oscuro profundo */
-        background-image: 
+        background-color: #0f172a;
+        /* Fondo oscuro profundo */
+        background-image:
             radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%),
             radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.1) 0px, transparent 50%);
         display: flex;
@@ -56,14 +57,16 @@
         max-width: 700px;
         border: 1px solid #334155;
         border-radius: 16px;
-        background: #1e293b; /* Fondo de la tarjeta */
+        background: #1e293b;
+        /* Fondo de la tarjeta */
         padding: 40px;
         box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
     }
 
     /* Leyendas */
     legend {
-        color: #10b981; /* Verde neón esmeralda */
+        color: #10b981;
+        /* Verde neón esmeralda */
         padding: 0 10px;
         font-weight: 600;
         font-size: 1.1rem;
@@ -240,7 +243,8 @@
             <div>
                 <label for="primerApellido">Primer Apellido</label>
                 <input type="text" id="primerApellido" name="primerApellido" required th:field="*{primerApellido}">
-                <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="error">Primer Apellido Incorrecto</p>
+                <p th:if="${#fields.hasErrors('primerApellido')}" th:errors="*{primerApellido}" class="error">Primer
+                    Apellido Incorrecto</p>
             </div>
             <div>
                 <label for="segundoApellido">Segundo Apellido</label>
@@ -263,22 +267,24 @@
             <div>
                 <label for="salario">Salario:</label>
                 <input type="text" name="salario" id="salario" th:field="*{salario}">
-                <p th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" class="error">El salario debe ser superior o igual a 1000</p>
+                <p th:if="${#fields.hasErrors('salario')}" th:errors="*{salario}" class="error">El salario debe ser
+                    superior o igual a 1000</p>
             </div>
             <div>
                 <label for="fechaAlta">Fecha de Alta:</label>
                 <input type="date" name="fechaAlta" id="fechaAlta" th:field="*{fechaAlta}">
-                <p th:if="${#fields.hasErrors('fechaAlta')}" th:errors="*{fechaAlta}" class="error">La fecha de alta debe ser igual o anterior a la fecha actual</p>
+                <p th:if="${#fields.hasErrors('fechaAlta')}" th:errors="*{fechaAlta}" class="error">La fecha de alta
+                    debe ser igual o anterior a la fecha actual</p>
             </div>
             <div>
                 <label for="numerosTelefono">Teléfonos</label>
-                <input type="text" name="numerosTelefono" id="numerosTelefono" placeholder="Uno o varios separados por ;"
-                th:value="${numerosTelefono}">
+                <input type="text" name="numerosTelefono" id="numerosTelefono"
+                    placeholder="Uno o varios separados por ;" th:value="${numerosTelefono}">
             </div>
             <div>
                 <label for="direccionesCorreo">Correos</label>
-                <input type="text" name="direccionesCorreo" id="direccionesCorreo" placeholder="Uno o varios separados por ;" 
-                th:value="${direccionesCorreos}">
+                <input type="text" name="direccionesCorreo" id="direccionesCorreo"
+                    placeholder="Uno o varios separados por ;" th:value="${direccionesCorreos}">
             </div>
             <div>
                 <label for="departamentos">Departamento:</label>
@@ -289,10 +295,15 @@
             </div>
             <div>
                 <label for="file">Foto del Empleado: </label>
-                <input type="file" id="file" name="file">
+                <input type="file" id="file" name="file" title="Seleccion de foto del empleado">
+                <div th:if="${empleado.id != 0 and empleado.foto != null}">
+                    <h4>Foto actual del empleado: </h4>
+                    <img th:src="@{'/imagenes/' + ${empleado.foto}}" alt="Foto del empleado"
+                        style="max-width: 150px; border-radius: 8px; display: block; margin-bottom: 10px;">
+                </div>
             </div>
             <div>
-                <input type="submit" class="btn" value="Alta / Modificación">
+                <input type="submit" class="btn" value="Alta/Modificación">
             </div>
         </form>
     </fieldset>
