@@ -1,173 +1,182 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Listado de Empleados</title>
-<style>
-    /* Importar fuente idéntica al formulario */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Empleados</title>
+    <style>
+        /* Importar fuente idéntica al formulario */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    body {
-        font-family: 'Inter', sans-serif;
-        min-height: 100vh;
-        background-color: #0f172a; /* Fondo oscuro profundo */
-        background-image: 
-            radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
-            radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
-        color: #f1f5f9;
-        padding: 40px 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* Título */
-    h1 {
-        color: #ffffff;
-        margin-bottom: 10px;
-        font-weight: 700;
-        text-align: center;
-        font-size: 2.5rem;
-        letter-spacing: -0.05em;
-    }
-
-    /* Contenedor del Botón de Alta */
-    .actions-container {
-        width: 100%;
-        max-width: 1100px;
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 20px;
-    }
-
-    /* Botón Alta Empleado */
-    .btn-alta {
-        display: inline-block;
-        text-decoration: none;
-        background: #10b981; /* Verde Esmeralda */
-        color: #0f172a;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 14px;
-        transition: all 0.2s ease-in-out;
-        box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
-    }
-
-    .btn-alta:hover {
-        background: #34d399;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
-    }
-
-    .btn-alta:active {
-        transform: translateY(0);
-    }
-
-    /* Contenedor de la Tabla */
-    .table-container {
-        width: 100%;
-        max-width: 1100px;
-        background-color: #1e293b; /* Fondo de tarjeta de formulario */
-        border: 1px solid #334155;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
-        border-radius: 12px;
-        overflow: hidden;
-    }
-
-    /* Tabla */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-    }
-
-    /* Encabezado */
-    thead {
-        background-color: #111827; /* Más oscuro para contrastar */
-        border-bottom: 2px solid #334155;
-    }
-
-    th {
-        padding: 16px 20px;
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.75rem;
-        letter-spacing: 0.05em;
-        color: #94a3b8; /* Texto gris suave */
-    }
-
-    /* Celdas del Cuerpo */
-    td {
-        padding: 16px 20px;
-        border-bottom: 1px solid #334155;
-        color: #e2e8f0;
-        font-size: 0.90rem;
-    }
-
-    /* Filas Cebras */
-    tbody tr:nth-child(even) {
-        background-color: #1e293b;
-    }
-    
-    tbody tr:nth-child(odd) {
-        background-color: #172237; /* Sutil variación de fondo */
-    }
-
-    /* Efecto Hover en las filas */
-    tbody tr:hover {
-        background-color: #0f172a;
-        transition: background-color 0.15s ease;
-    }
-
-    /* Formateo de Texto a la Derecha (Salario) */
-    .text-right {
-        text-align: right;
-    }
-    
-    /* Resaltar la columna salario con un tono ligeramente esmeralda */
-    td.text-right {
-        color: #34d399; 
-        font-weight: 500;
-    }
-
-    /* Diseño Responsivo */
-    @media(max-width: 768px) {
         body {
-            padding: 20px 10px;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            background-color: #0f172a;
+            /* Fondo oscuro profundo */
+            background-image:
+                radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(99, 102, 241, 0.08) 0px, transparent 50%);
+            color: #f1f5f9;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
+        /* Título */
         h1 {
-            font-size: 2rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-weight: 700;
+            text-align: center;
+            font-size: 2.5rem;
+            letter-spacing: -0.05em;
         }
 
+        /* Contenedor del Botón de Alta */
         .actions-container {
-            justify-content: center;
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
         }
 
-        /* Permitir scroll horizontal en pantallas pequeñas para que no se rompa la tabla */
+        /* Botón Alta Empleado */
+        .btn-alta {
+            display: inline-block;
+            text-decoration: none;
+            background: #10b981;
+            /* Verde Esmeralda */
+            color: #0f172a;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+        }
+
+        .btn-alta:hover {
+            background: #34d399;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-alta:active {
+            transform: translateY(0);
+        }
+
+        /* Contenedor de la Tabla */
         .table-container {
-            overflow-x: auto;
+            width: 100%;
+            max-width: 1100px;
+            background-color: #1e293b;
+            /* Fondo de tarjeta de formulario */
+            border: 1px solid #334155;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
         }
 
-        th, td {
-            padding: 12px 14px;
-            font-size: 0.85rem;
+        /* Tabla */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
         }
-    }
-</style>
+
+        /* Encabezado */
+        thead {
+            background-color: #111827;
+            /* Más oscuro para contrastar */
+            border-bottom: 2px solid #334155;
+        }
+
+        th {
+            padding: 16px 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            color: #94a3b8;
+            /* Texto gris suave */
+        }
+
+        /* Celdas del Cuerpo */
+        td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #334155;
+            color: #e2e8f0;
+            font-size: 0.90rem;
+        }
+
+        /* Filas Cebras */
+        tbody tr:nth-child(even) {
+            background-color: #1e293b;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: #172237;
+            /* Sutil variación de fondo */
+        }
+
+        /* Efecto Hover en las filas */
+        tbody tr:hover {
+            background-color: #0f172a;
+            transition: background-color 0.15s ease;
+        }
+
+        /* Formateo de Texto a la Derecha (Salario) */
+        .text-right {
+            text-align: right;
+        }
+
+        /* Resaltar la columna salario con un tono ligeramente esmeralda */
+        td.text-right {
+            color: #34d399;
+            font-weight: 500;
+        }
+
+        /* Diseño Responsivo */
+        @media(max-width: 768px) {
+            body {
+                padding: 20px 10px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .actions-container {
+                justify-content: center;
+            }
+
+            /* Permitir scroll horizontal en pantallas pequeñas para que no se rompa la tabla */
+            .table-container {
+                overflow-x: auto;
+            }
+
+            th,
+            td {
+                padding: 12px 14px;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
     <h1>Listado de Empleados</h1>
-    
+
     <div class="actions-container">
         <a th:href="@{/empleados/alta}" class="btn-alta">+ Alta Empleado</a>
     </div>
@@ -194,10 +203,12 @@
                     <td th:text="${empleado.fechaAlta}"></td>
                     <td><a th:href="@{/empleados/details/}+${empleado.id}">Detalles</a></td>
                     <td><a th:href="@{/empleados/update/}+${empleado.id}">Actualizar</a></td>
+                    <td><a th:href="@{/empleados/delete/}+${empleado.id}">Eliminar</a></td>
                 </tr>
             </tbody>
         </table>
     </div>
 
 </body>
+
 </html>

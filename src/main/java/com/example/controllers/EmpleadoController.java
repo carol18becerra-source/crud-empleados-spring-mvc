@@ -149,14 +149,13 @@ public class EmpleadoController {
 		}
 		// antes de persistir el empleado, hay que eliminar los telefonos y los correos
 		// que tenga
-		if( empleado.getId() != 0){
+		if (empleado.getId() != 0) {
 
-				if (telefonoService.existsByEmpleado(empleado))
-			telefonoService.deleteByEmpleado(empleado);
+			if (telefonoService.existsByEmpleado(empleado))
+				telefonoService.deleteByEmpleado(empleado);
 
-		if (correoService.existsByEmpleado(empleado))
-			correoService.deleteByEmpleado(empleado);
-
+			if (correoService.existsByEmpleado(empleado))
+				correoService.deleteByEmpleado(empleado);
 
 		}
 		// se recibe un objeto empleado con los datos del formulario
@@ -217,4 +216,37 @@ public class EmpleadoController {
 
 		return "formularioAltaModificacion";
 	}
+
+	// metodo para eliminar un empleado con sus correos y sus telefonos
+	// corespondientes hay que eliminar tambiien el archivo foto del empleado en
+	// caso de tenerla
+
+	@GetMapping("/delete/{id}")
+	public String deleteEmpleado(Model model, @PathVariable("id") int idEmpleado) {
+		// comprobar si tiene foto para eliminarla
+
+		Empleado empleadoEliminar = empleadoService.getEmpleadoById(idEmpleado);
+
+		if (empleadoEliminar.getFoto() != null) {
+
+			// Ruta relativa del fichero que se va a eliminar
+
+			Path rutaRelativa = Paths.get("src/main/resources/static/imagenes/" + empleadoEliminar.getFoto());
+
+			if (Files.exists(rutaRelativa)) {
+
+				try {
+					Files.delete(rutaRelativa);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		// Eliminar el empleado
+		empleadoService.deleteEmpleado(idEmpleado);
+
+		return "redirect:/empleados/listar";
+	}
+
 }
